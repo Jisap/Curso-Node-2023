@@ -1,6 +1,7 @@
 
 const { emailTemplate } = require('./js-foundation/01-template.js');
 
-console.log(emailTemplate);
+require ('./js-foundation/02-destructuring.js');
+
 
 //console.log(emailTemplate);
