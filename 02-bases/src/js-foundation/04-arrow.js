@@ -11,9 +11,9 @@ const users = [
     }
 ]
 
- getUserById( id, callback ){
-
-    const user = users.find( function(user){
+const getUserById = ( id, callback ) => {
+    
+    const user = users.find( (user) => {
         return user.id === id;
     })
 
