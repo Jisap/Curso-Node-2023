@@ -1,12 +1,14 @@
-const {v4: uuidv4 } = require('uuid');
-const getAge = require('get-age');
+// const { getUUID } = require('./plugins/get-id.plugin');
+// const { getAge } = require('./plugins/get-age.plugin.js');
+
+const { getAge, getUUID } = require ('./plugins');
 
 const obj = { name: 'john', birdthdate: '1985-10-21'}
 
 const buildPersons = ({ name, birdthdate}) => {
     
     return {
-        id: uuidv4(),
+        id: getUUID(),
         name: name,
         birdthdate: birdthdate,
         age: getAge(birdthdate),
