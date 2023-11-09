@@ -14,8 +14,12 @@ const logger = winston.createLogger({               // Objeto logger
     ],
 });
 
+logger.add(new winston.transports.Console({ // console.log tradicional
+    format: winston.format.simple()
+}));
+
 // Patron adaptador de winston
-module.exports = function buildLogger( service ){ // buildLogger llama al servicio (user-service) al que pertenece el registro
+module.exports = function buildLogger( service ){ // buildLogger llama al servicio (app) al que pertenece el registro
     return {
         log: ( message ) => {                        // retornará un método log que recibirá el mensaje que queremos registrar en logs
             logger.log( 'info', {message, service} ) // Este mensaje tendrá el lvl, el formato y servicio (app) que se escribirá en los logs

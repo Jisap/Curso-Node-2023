@@ -3,3 +3,5 @@
 {"level":"info","message":"Hola mundo"}
 {"level":"info","message":"Hola mundo","service":"app.js"}
 {"level":"info","message":"Hola mundo","service":"app.js"}
+{"level":"info","message":"Hola mundo","service":"app.js"}
+{"level":"info","message":"Hola mundo","service":"app.js"}
