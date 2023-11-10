@@ -39,3 +39,4 @@ const { buildLogger } = require('./js-foundation/plugins');
 const logger = buildLogger('app.js');
 
 logger.log('Hola mundo');
+logger.error("Test de error");
