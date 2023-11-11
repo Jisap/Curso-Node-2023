@@ -16,7 +16,8 @@ const heroes = [
   }
 ];
 
-const findHeroById = (id) => {
+
+const findHeroById = (id: number) => {
   return heroes.find((hero) => hero.id === id);
 };
 
