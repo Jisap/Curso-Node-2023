@@ -5,15 +5,25 @@
 
 // const obj = { name: 'john', birdthdate: '1985-10-21'}
 
-const buildMakePerson = ({ getUUID, getAge }) => {
+interface BuildMakerPersonOptions {
+    getUUID: () => string;
+    getAge: (birthdate: string) => number;
+}
 
-    return ({ name, birdthdate}) => {
+interface PersonOptions {
+    name: string;
+    birthdate: string;
+}
+
+export const buildMakePerson = ({ getUUID, getAge }: BuildMakerPersonOptions) => {
+
+    return ({ name, birthdate}: PersonOptions) => {
         
         return {
             id: getUUID(),
             name: name,
-            birdthdate: birdthdate,
-            age: getAge(birdthdate),
+            birthdate: birthdate,
+            age: getAge(birthdate),
         }
     }
 }
