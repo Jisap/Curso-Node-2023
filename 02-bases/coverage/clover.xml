@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1700154094059" clover="3.2.0">
-  <project timestamp="1700154094059" name="All files">
+<coverage generated="1700154228260" clover="3.2.0">
+  <project timestamp="1700154228261" name="All files">
     <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="8" coveredelements="8" complexity="0" loc="8" ncloc="8" packages="1" files="1" classes="1"/>
     <file name="01-template.ts" path="D:\Node-2023\02-bases\src\js-foundation\01-template.ts">
       <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

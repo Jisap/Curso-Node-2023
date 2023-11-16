@@ -13,6 +13,9 @@ describe('js-foundation/01-template', () => {
   
       expect(emailTemplate).toMatch(/{{name}}/);
       expect(emailTemplate).toMatch(/{{orderId}}/);
+
+      expect(emailTemplate).toContain('{{name}}');
+      expect(emailTemplate).toMatch('{{orderId}}');
   })
 
 
