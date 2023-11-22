@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for 05-factory.ts</title>
+    <title>Code coverage report for js-foundation/plugins/logger.plugin.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="prettify.css" />
-    <link rel="stylesheet" href="base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> 05-factory.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">js-foundation/plugins</a> logger.plugin.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/35</span>
+                <span class='fraction'>27/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/35</span>
+                <span class='fraction'>27/36</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -98,8 +98,7 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -117,8 +116,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -127,67 +124,67 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// const { getUUID } = require('./plugins/get-id.plugin');
-// const { getAge } = require('./plugins/get-age.plugin.js');
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+import  winston from 'winston'
+const { combine, timestamp, json } = winston.format;
 &nbsp;
-// const { getAge, getUUID } = require ('./plugins');
+const logger = winston.createLogger({               // Objeto logger
+    level: 'info',                                  // nivel de importancia para los mensajes tipo "info"
+    format: combine(                                // Con un formato que combine
+        timestamp(),                                // los tiempos en que se ejecuto
+        json(),                                     // y los mensajes json()   
+    ),                  
+    //defaultMeta: { service: 'user-service' },     // metadatos en todos los registros
+    transports: [                                   // Los transports son los destinos de los registros     
+        //
+        // - Write all logs with importance level of `error` or less to `error.log`
+        // - Write all logs with importance level of `info` or less to `combined.log`
+        //
+        new winston.transports.File({ filename: 'error.log', level: 'error' }), // Transport de nivel error en archivo llamado error.log
+        new winston.transports.File({ filename: 'combined.log' }),              // Transport de nivel info en archivo llamando combined.log
+    ],
+});
 &nbsp;
-// const obj = { name: 'john', birdthdate: '1985-10-21'}
+logger.add(new winston.transports.Console({ // console.log tradicional
+    format: winston.format.simple()
+}));
 &nbsp;
-interface BuildMakerPersonOptions {
-    getUUID: () =&gt; string;
-    getAge: (birthdate: string) =&gt; number;
-}
-&nbsp;
-interface PersonOptions {
-    name: string;
-    birthdate: string;
-}
-&nbsp;
-export const buildMakePerson = ({ getUUID, getAge }: BuildMakerPersonOptions) =&gt; {
-&nbsp;
-    return ({ name, birthdate}: PersonOptions) =&gt; {
-        
-        return {
-            id: getUUID(),
-            name: name,
-            birthdate: birthdate,
-            age: getAge(birthdate),
-        }
-    }
-}
-&nbsp;
-&nbsp;
-&nbsp;
-// const john = buildPerson( obj );
-&nbsp;
-// console.log(john);
-&nbsp;
-&nbsp;</pre></td></tr></table></pre>
+// Patron adaptador de winston
+export const buildLogger = <span class="fstat-no" title="function not covered" >( service:string ) =&gt; { // buildLogger llama al servicio (app) al que pertenece el registro</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+<span class="cstat-no" title="statement not covered" >        log: ( message: string ) =&gt; {                        // retornará un método log que recibirá el mensaje que queremos registrar en logs</span>
+<span class="cstat-no" title="statement not covered" >            logger.log( 'info', {message, service} ) // Este mensaje tendrá el lvl, el formato y servicio (app) que se escribirá en los logs</span>
+<span class="cstat-no" title="statement not covered" >        },</span>
+<span class="cstat-no" title="statement not covered" >        error: (message:string) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('error', {message, service})</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-22T15:47:00.812Z
+                at 2023-11-22T15:23:53.599Z
             </div>
-        <script src="prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     
