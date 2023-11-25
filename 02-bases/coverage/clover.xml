@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1700757079360" clover="3.2.0">
-  <project timestamp="1700757079360" name="All files">
-    <metrics statements="130" coveredstatements="130" conditionals="13" coveredconditionals="12" methods="5" coveredmethods="5" elements="148" coveredelements="147" complexity="0" loc="130" ncloc="130" packages="2" files="7" classes="7"/>
+<coverage generated="1700928413495" clover="3.2.0">
+  <project timestamp="1700928413495" name="All files">
+    <metrics statements="139" coveredstatements="139" conditionals="14" coveredconditionals="13" methods="6" coveredmethods="6" elements="159" coveredelements="158" complexity="0" loc="139" ncloc="139" packages="2" files="8" classes="8"/>
     <package name="js-foundation">
       <metrics statements="102" coveredstatements="102" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
       <file name="01-template.ts" path="D:\Node-2023\02-bases\src\js-foundation\01-template.ts">
@@ -123,7 +123,7 @@
       </file>
     </package>
     <package name="js-foundation.plugins">
-      <metrics statements="28" coveredstatements="28" conditionals="5" coveredconditionals="4" methods="2" coveredmethods="2"/>
+      <metrics statements="37" coveredstatements="37" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="3"/>
       <file name="get-age.plugin.ts" path="D:\Node-2023\02-bases\src\js-foundation\plugins\get-age.plugin.ts">
         <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -138,6 +138,18 @@
         <line num="10" count="3" type="stmt"/>
         <line num="11" count="3" type="stmt"/>
         <line num="12" count="3" type="stmt"/>
+      </file>
+      <file name="get-id.plugin.ts" path="D:\Node-2023\02-bases\src\js-foundation\plugins\get-id.plugin.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
       </file>
       <file name="http-client.plugin.ts" path="D:\Node-2023\02-bases\src\js-foundation\plugins\http-client.plugin.ts">
         <metrics statements="16" coveredstatements="16" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
