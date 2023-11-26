@@ -11,3 +11,6 @@
 {"level":"error","message":"error Test de error","service":"app.js"}
 {"level":"info","message":"Hola mundo","service":"app.js","timestamp":"2023-11-10T17:58:42.981Z"}
 {"level":"error","message":"error Test de error","service":"app.js","timestamp":"2023-11-10T17:58:42.984Z"}
+{"level":"info","message":"test message","service":"test service","timestamp":"2023-11-26T10:28:24.827Z"}
+{"level":"info","message":"test message","service":"test service","timestamp":"2023-11-26T10:32:59.406Z"}
+{"level":"info","message":"test message","service":"test service","timestamp":"2023-11-26T10:38:18.879Z"}
