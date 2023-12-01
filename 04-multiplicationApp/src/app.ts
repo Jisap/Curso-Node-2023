@@ -12,3 +12,5 @@ import { yarg } from "./config/plugins/yargs.plugin";
 async function main(){
   console.log(yarg)
 }
+
+// npx ts-node src/app --base 10 -s
