@@ -10,6 +10,7 @@ describe('save-file.use-case', () => {
   }
 
   const customFilePath = `${customOptions.fileDestination}/${customOptions.fileName}.txt`;
+  
 
   afterEach(() => {
     const outputFolderExists = fs.existsSync('outputs'); 
@@ -48,4 +49,29 @@ describe('save-file.use-case', () => {
     expect(fileContent).toBe(customOptions.fileContent)
   })
 
+  test('should return false if directory could not be created', () => { 
+  
+    const saveFile = new SaveFile();
+    const mkdirSpy = jest.spyOn(fs, 'mkdirSync').mockImplementation(
+      () => {throw new Error('error')}  
+    );
+
+    const result = saveFile.execute(customOptions);
+    expect(result).toBe(false);
+
+    mkdirSpy.mockRestore();
+  })
+
+  test('should return false if file could not be created', () => {
+
+    const saveFile = new SaveFile();
+    const writeFileSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(
+      () => { throw new Error('error') }
+    );
+
+    const result = saveFile.execute({fileContent: "hola"});
+    expect(result).toBe(false);
+
+    writeFileSpy.mockRestore();
+  })
 });
