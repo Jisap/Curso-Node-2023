@@ -26,7 +26,6 @@ export class CheckService implements CheckServiceUseCase {
       return true
 
     } catch (error) {
-      console.log(`${error}`);
       this.errorCallback(`${ error }`);
       return false
     }
