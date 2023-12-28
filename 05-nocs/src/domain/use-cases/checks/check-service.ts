@@ -10,7 +10,7 @@ export class CheckService implements CheckServiceUseCase {
 
   constructor(
     private readonly successCallback: SuccessCallback,
-    private readonly errorCallback: ErrorCallback
+    private readonly errorCallback: ErrorCallback,
   ){}
 
   public async execute(url: string): Promise<boolean>{
