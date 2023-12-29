@@ -30,23 +30,42 @@ export class FileSystemDataSource implements LogDataSource {
 
   async saveLog(newLog: LogEntity): Promise<void> {
 
-    const logAsJson = `${JSON.stringify(newLog)}\n`
+    const logAsJson = `${JSON.stringify(newLog)}\n`         // Método para hacer un string de un json con el newLog
     
-    fs.appendFileSync( this.allLogsPath, logAsJson );
+    fs.appendFileSync( this.allLogsPath, logAsJson );       // 1º añade el log a "allLogsPath"
 
-    if( newLog.level === LogSeverityLevel.low) return;
+    if( newLog.level === LogSeverityLevel.low) return;      // 2º si level de newLog es bajo no se hace nada más
 
-    if( newLog.level === LogSeverityLevel.medium) {
+    if( newLog.level === LogSeverityLevel.medium) {         // 3º Si el level de newLog es medium se añade ademas "mediumLogsPath"
       fs.appendFileSync(this.mediumLogsPath, logAsJson );
     } else {
-      fs.appendFileSync(this.highLogsPath, logAsJson);
+      fs.appendFileSync(this.highLogsPath, logAsJson);      // 4º Si el level no es ninguno de los anteriores será High, se añade a "highLogsPath"
     }
   }
 
+  private getLogsFromFile = (path: string):LogEntity[] => {
+    const content = fs.readFileSync( path, 'utf-8' ); // Leemos el contenido
+    const logs = content.split('\n').map(             // Separamos cada string por '\n'  
+      log => LogEntity.fromJson(log)                  // Lo convertimos a json:LogEntity
+    )
+    return logs
+  }
 
+  async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+    
+    switch( severityLevel ){
+      case LogSeverityLevel.low:
+        return this.getLogsFromFile(this.allLogsPath);
 
-  getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
-    throw new Error("Method not implemented.");
+      case LogSeverityLevel.medium:
+        return this.getLogsFromFile(this.mediumLogsPath);;
+
+        case LogSeverityLevel.high:
+        return this.getLogsFromFile(this.highLogsPath);;
+
+        default: 
+          throw new Error(`${severityLevel} not implemented`)
+    }
   }
 
 
