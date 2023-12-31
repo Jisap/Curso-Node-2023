@@ -10,7 +10,7 @@ export class LogRepositoryImpl implements LogRepository { // repositoryImpl infr
     private readonly LogDataSource: LogDataSource         //  datasource domain
   ){}
 
-  async saveLog(log: LogEntity): Promise<void> {
+  async saveLog(log: LogEntity): Promise<void> {  // Método del repo domain desarrollado con método del datasource domain
     return this.LogDataSource.saveLog( log );
   }
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
