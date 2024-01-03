@@ -8,3 +8,5 @@ custom-outputs/
 test-destination/
 
 coverage/
+
+logs/
