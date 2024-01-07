@@ -13,6 +13,9 @@ export class Server {
 
     console.log('Server started...');
 
+    // Mandar email
+
+
     CronService.createJob(
       '*/5 * * * * *',
       () => {

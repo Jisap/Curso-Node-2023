@@ -10,6 +10,6 @@ import { envs } from './config/plugins/envs';
 
 
 async function main() {
-  console.log(envs)
+  //console.log(envs)
   Server.start()
 }
