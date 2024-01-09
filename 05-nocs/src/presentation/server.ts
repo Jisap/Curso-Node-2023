@@ -16,7 +16,7 @@ export class Server {
     console.log('Server started...');
 
     // Mandar email
-    const emailService = new EmailService();
+    const emailService = new EmailService( fileSystemLogRepository );
     emailService.sendEmailWithFileSystemLogs("usuario@gmail.com")
 
     // CronService.createJob(
