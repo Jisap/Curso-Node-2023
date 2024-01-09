@@ -25,9 +25,7 @@ export class EmailService {
     }
   });
 
-  constructor(
-    private readonly logRepository: LogRepository                 // Inyección de dependencias para grabar logs    
-  ){}
+  constructor(){}
 
   async sendEmail(options:SendEmailOptions):Promise<boolean>{     // Método para enviar el email y grabar logs
   
@@ -41,29 +39,16 @@ export class EmailService {
         attachments: attachments
       });
 
-      //console.log(sentInformation)
-      const log = new LogEntity({
-        level: LogSeverityLevel.low,
-        message: 'Email sent',
-        origin: 'email.service.ts'
-      })
-      this.logRepository.saveLog(log)
-
       return true
     } catch (error) {
       console.log(error)
-      const log = new LogEntity({
-        level: LogSeverityLevel.high,
-        message: 'Email not sent',
-        origin: 'email.service.ts'
-      })
-      this.logRepository.saveLog(log)
+      
       return false
     }
   }
 
 
-  async sendEmailWithFileSystemLogs( to: string | string[] ) {
+  async sendEmailWithFileSystemLogs( to: string | string[] ) {  // Método para enviar email con attachments y grabar logs
     const subject = 'Logs del servidor';
     const htmlBody = `
       <h3>Logs de sistema NOC</h3>
