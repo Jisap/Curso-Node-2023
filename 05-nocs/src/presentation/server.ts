@@ -22,7 +22,7 @@ export class Server {
     new SendEmailLogs(            // use-case
       emailService,               // Envia emails con attachments 
       fileSystemLogRepository,    // Graba logs
-    ).execute("jorgematosminguez@gmail.com")
+    ).execute("usuario@gmail.com")
 
     // CronService.createJob(
     //   '*/5 * * * * *',
