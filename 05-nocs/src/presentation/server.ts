@@ -19,10 +19,10 @@ export class Server {
     console.log('Server started...');
 
     // Mandar email
-    new SendEmailLogs(            // use-case
-      emailService,               // Envia emails con attachments 
-      fileSystemLogRepository,    // Graba logs
-    ).execute("usuario@gmail.com")
+    // new SendEmailLogs(            // use-case
+    //   emailService,               // Envia emails con attachments 
+    //   fileSystemLogRepository,    // Graba logs
+    // ).execute("usuario@gmail.com")
 
     // CronService.createJob(
     //   '*/5 * * * * *',
