@@ -32,6 +32,8 @@ export class LogEntity {
 
   static fromJson = ( json:string ):LogEntity => {           // Este método transforma un json stringify en un LogEntity
     
+    json = (json === '') ? '{}' : json;
+
     const {message, level, createdAt, origin } = JSON.parse(json);
 
     const log = new LogEntity({ message, level, createdAt, origin });
