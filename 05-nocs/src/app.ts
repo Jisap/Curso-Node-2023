@@ -20,17 +20,5 @@ async function main() {
 
   });
 
-  //Crear una colección = tables, document = registro
-  const newLog = await LogModel.create({
-    message: 'Test message desde Mongo',
-    origin: ' App.ts',
-    level: 'low'
-  });
-
-  //await newLog.save();
-
-  console.log(newLog)
-
-
   //Server.start()
 }
