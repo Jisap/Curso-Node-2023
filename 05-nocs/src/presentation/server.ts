@@ -30,8 +30,8 @@ export class Server {
     //   fileSystemLogRepository,    // Graba logs
     // ).execute("usuario@gmail.com")
 
-    const logs = await logRepository.getLogs(LogSeverityLevel.low)
-    console.log(logs)
+    // const logs = await logRepository.getLogs(LogSeverityLevel.low)
+    // console.log(logs)
 
     // CronService.createJob(
     //   '*/5 * * * * *',
