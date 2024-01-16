@@ -21,21 +21,5 @@ async function main() {
 
   });
 
-  const prisma = new PrismaClient();
-  // const newLog = await prisma.logModel.create({
-  //   data: {
-  //     level: 'HIGH',
-  //     message: 'Test',
-  //     origin: 'APP'
-  //   }
-  // });
-
-  const logs = await prisma.logModel.findMany({
-    where: {
-      level: 'MEDIUM'
-    }
-  });
-  console.log(logs)
-
-  //Server.start()
+  Server.start()
 }
