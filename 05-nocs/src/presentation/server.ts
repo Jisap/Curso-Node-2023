@@ -1,6 +1,7 @@
 import { envs } from "../config/plugins/envs";
 import { LogSeverityLevel } from "../domain/entities/log.entity";
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple";
 import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDataSource } from "../infraestructure/datasources/file-system.datasource";
 import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
@@ -10,11 +11,15 @@ import { CronService } from "./cron/cron-service";
 import { EmailService } from './email/email.service';
 
 
-const logRepository = new LogRepositoryImpl(  // Repository de infrastructure(datasource de infraestructura)
-  //new FileSystemDataSource()  
-  //new MongoLogDatasource()
-  new PostgresLogDatasource()
-)
+const fsLogRepository = new LogRepositoryImpl(    // Repositorys de infrastructure(datasource de infraestructura)
+  new FileSystemDataSource(),
+);
+const mongoLogRepository = new LogRepositoryImpl(
+  new MongoLogDatasource(),
+);
+const postgresLogRepository = new LogRepositoryImpl(
+  new PostgresLogDatasource(),
+);
 
 const emailService = new EmailService()
 
@@ -37,9 +42,9 @@ export class Server {
       '*/5 * * * * *',
       () => {
         const url = 'https:google.com'
-        new CheckService(
-          logRepository,                     // inyección del repository Impl 
-          () => console.log(`${url} is ok`), // inyección de dependencias
+        new CheckServiceMultiple(
+          [fsLogRepository, postgresLogRepository, mongoLogRepository],       // inyección de repositorys Impl 
+          () => console.log(`${url} is ok`),                                  // inyección de dependencias
           (error) => console.log(error)  
         ).execute(url);
         //new CheckService().execute('http:/localhost:3000')
