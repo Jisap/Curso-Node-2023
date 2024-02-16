@@ -51,7 +51,9 @@ export class TodosController {
     const {text, completedAt} = req.body;
     
     todo.text = text || todo.text;
-    (completedAt === null )
+    (completedAt === 'null' ) // null implica que queremos cambiar la fecha
+      ? todo.completedAt = null
+      : todo.completedAt = new Date( completedAt || todo.completedAt)
 
     res.json(todo)
   }
