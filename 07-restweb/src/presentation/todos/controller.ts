@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-const todos = [
+let todos = [
   { id: 1, text: 'Buy milk', completedAt: new Date() },
   { id: 2, text: 'Buy bread', completedAt: null },
   { id: 3, text: 'Buy butter', completedAt: new Date() },
@@ -57,4 +57,19 @@ export class TodosController {
 
     res.json(todo)
   }
+
+  public deleteTodo = (req: Request, res: Response) => {
+    
+    const id = +req.params.id
+    if (isNaN(id)) return res.status(400).json({ error: 'Id argument is not a number' });
+
+    const todo = todos.find(todo => todo.id === id);
+    if (!todo) return res.status(404).json({ error: `Todo with id ${id} not found` });
+
+    todos = todos.filter(todo => todo.id !== id)
+    
+    res.json(todo) 
+  }
+
+
 }
