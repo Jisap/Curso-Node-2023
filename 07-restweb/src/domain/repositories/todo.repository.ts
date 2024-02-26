@@ -10,6 +10,6 @@ export abstract class TodoRepository {
   abstract getAll(): Promise<TodoEntity[]>                              // Obtiene un [] de TodoEntity
   abstract findById(id: number): Promise<TodoEntity>                    // Busca por id un TodoEntity
   abstract updateById(updateTodoDto: UpdateTodoDto): Promise<TodoEntity>// Actualiza por id (updateTodoDto) un TodoEntity   
-  abstract updateById(id: number): Promise<TodoEntity>                  // Borra por id un TodoEntity
+  abstract deletedById(id: number): Promise<TodoEntity>                  // Borra por id un TodoEntity
 
 }
