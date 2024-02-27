@@ -1,5 +1,6 @@
 import express, { Router } from 'express'
 import path from 'path';
+import compression from 'compression'
 
 interface Options { // Props de clase
   port: number;
@@ -26,6 +27,7 @@ export class Server {
     // middlewares
     this.app.use( express.json());
     this.app.use( express.urlencoded({ extended: true }))
+    this.app.use( compression() )
 
     // public folder
     this.app.use( express.static(this.publicPath));
