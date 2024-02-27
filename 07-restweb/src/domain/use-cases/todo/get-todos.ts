@@ -7,7 +7,7 @@ export interface GetTodosUseCase {
   execute(): Promise<TodoEntity[]>
 }
 
-export class GetTodo implements GetTodosUseCase {
+export class GetTodos implements GetTodosUseCase {
 
   constructor(
     private readonly repository: TodoRepository
