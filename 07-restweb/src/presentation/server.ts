@@ -10,7 +10,8 @@ interface Options { // Props de clase
 
 export class Server {
 
-  private app = express();  // args de clase
+  public readonly app = express();  // args de clase // Se hace public para los test
+  public serverListener?: any;
   private readonly port: number;
   private readonly publicPath: string;
   private readonly routes: Router;
@@ -41,9 +42,14 @@ export class Server {
       res.sendFile(indexPath);
     })
     
-    this.app.listen(this.port, () => {
+    this.serverListener = this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     })
+
+  }
+  
+  public close() {
+    this.serverListener?.close()
   }
 
 
