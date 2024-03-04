@@ -63,7 +63,7 @@ describe('Todo route testing', () => {
       .get(`/api/todos/${todoId}`)
       .expect(400)
 
-    expect(body).toEqual({ error: 'Todo with id 9999 not found' })
+    expect(body).toEqual({ error: `Todo with id ${todoId} not found` })
   })
 
 })
