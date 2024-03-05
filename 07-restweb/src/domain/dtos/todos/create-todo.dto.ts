@@ -9,7 +9,7 @@ export class CreateTodoDto {
   static create(props: { [key: string]: any }): [string?, CreateTodoDto?] { // las props puede contener propiedades de cualquier nombre y tipo.
       
       const { text } = props
-      if(!text) return ['Text property is required', undefined] // Si no existe el text -> error
+      if(!text || text.length === 0) return ['Text property is required', undefined] // Si no existe el text -> error
 
       return [undefined, new CreateTodoDto(text)]; // Si si existe el texto se devuelve error:undefined
     }                                              // y una instancia de CreateTodo con el valor de text 

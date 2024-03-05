@@ -29,14 +29,14 @@ export class TodosController {
     
   }
 
-  public createTodo = (req: Request, res: Response) => {
-
-    const [error, createTodoDto] = CreateTodoDto.create(req.body) // el método create devuelve una instancia de createTodoDto = text
+  public createTodo = (req: Request, res: Response) => {          
+                                                                  // El método createTodo requiere de un dto y se obtiene desde la req 
+    const [error, createTodoDto] = CreateTodoDto.create(req.body) // usando el create-todo-dto que devuelve una instancia de createTodoDto = text
     if(error) return res.status(400).json({error})
-
-    new CreateTodo(this.todoRepository)
+        //use-case
+    new CreateTodo(this.todoRepository)                           // para desarrollar el createTodo -> useCase(todoRepository -> impl) -> execute met.repos   
       .execute(createTodoDto!)
-      .then(todo => res.json(todo))
+      .then(todo => res.status(201).json(todo))
       .catch(error => res.status(400).json({ error }))
 
   }
