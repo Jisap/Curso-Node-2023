@@ -13,7 +13,7 @@ export class UserEntity {
     public img?: string,
   ){}
                                   //key:    value  
-  static fromObjecto( object: { [key:string]:any }){
+  static fromObject( object: { [key:string]:any }){
 
     const { id, _id, name, email, emailValidated, password, role, img } = object;
 
