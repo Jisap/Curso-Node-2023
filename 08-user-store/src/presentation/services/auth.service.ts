@@ -1,7 +1,7 @@
 import { bcriptAdapter } from "../../config";
 import { UserModel } from "../../data";
-import { CustomError, RegisterUserDto, UserEntity } from "../../domain";
-import { LoginUserDto } from "../../domain/dtos/auth/login-user.dto";
+import { CustomError, LoginUserDto, RegisterUserDto, UserEntity } from "../../domain";
+
 
 
 
@@ -57,7 +57,7 @@ export class AuthService {
 
     return {
       user: { userEntity },
-      token: "ABC" // Aquí deberías generar y devolver un token JWT real
+      token: "ABC" 
     };
 
   }
