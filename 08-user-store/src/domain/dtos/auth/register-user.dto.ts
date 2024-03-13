@@ -14,7 +14,7 @@ export class RegisterUserDto {
     
     const { name, email, password } = object;
 
-    if(!name) return ['Missing name'];
+    if (!name) return ['Missing name'];
     if (!email) return ['Missing email'];
     if (!regularExps.email.test(email)) return ['email is not valid']
     if (!password) return ['Missing password'];
