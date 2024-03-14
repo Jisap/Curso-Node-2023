@@ -24,6 +24,7 @@ export class JwtAdapter {
 
   static validateToke( token:string) {
   
+    throw new Error('Not implemented')
     return 
   }
 }

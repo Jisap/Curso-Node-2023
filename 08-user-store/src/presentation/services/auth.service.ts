@@ -23,14 +23,17 @@ export class AuthService {
       user.password = bcriptAdapter.hash( registerUserDto.password );
 
       await user.save();
-      //jwt <- para mantener la autenticación del usuario
       //email de confirmación
-
-      const {password, ...userEntity} = UserEntity.fromObject(user)
+      
+      const {password, ...userEntity} = UserEntity.fromObject(user);
+      
+      //jwt <- para mantener la autenticación del usuario
+      const token = await JwtAdapter.generateToken({ id: user.id });
+      if (!token) throw CustomError.internalServer('Error while creatin JWT')
 
       return {
         user: { userEntity },
-        token: "ABC" 
+        token: token 
       }
 
     } catch (error) {
@@ -55,7 +58,7 @@ export class AuthService {
 
     const { password, ...userEntity } = UserEntity.fromObject(user);
 
-    const token = await JwtAdapter.generateToken({ id:user.id, email: user.email });
+    const token = await JwtAdapter.generateToken({ id:user.id });
     if( !token ) throw CustomError.internalServer('Error while creatin JWT')
 
     return {
