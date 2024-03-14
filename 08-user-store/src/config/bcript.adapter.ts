@@ -11,5 +11,5 @@ export const bcriptAdapter = {
 
   compare: (password:string, hashed: string) => { // Se proporciona la pass y el hash almacenado en bd
     return compareSync(password, hashed)          // compareSync compara el hash generado desde la pass con el almacenado en bd
-  }
-}
+  }                                               // compareSync extrae automáticamente el salt del hash almacenado
+}                                                 // y lo utiliza para generar un nuevo hash de la contraseña proporcionada.
