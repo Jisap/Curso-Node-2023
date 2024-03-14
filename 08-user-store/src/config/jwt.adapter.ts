@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
+import { envs } from "./envs";
 
-
+const JWT_SEED = envs.JWT_SEED
 
 export class JwtAdapter {
 
@@ -9,7 +10,7 @@ export class JwtAdapter {
     return new Promise((resolve) => {
       jwt.sign(
         payload, 
-        "SEED",
+        JWT_SEED,
         {expiresIn: duration},
         (err, token) => {
           if(err) return resolve(null);
