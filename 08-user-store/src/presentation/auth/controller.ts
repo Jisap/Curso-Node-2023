@@ -40,7 +40,12 @@ export class AuthController { // Controlador de rutas basado en un service
   }
 
   validateEmail = (req: Request, res: Response) => {
-    res.json('validateEmail')
+    const {token} = req.params;                         // recibimos el token desde el link del email
+    
+    this.authService.validateEmail(token)               // Se envía al servicio de validatedEmail
+      .then(() => res.json('Email validated'))
+      .catch(error => this.handleError(error, res))
+    
   }
 
 }

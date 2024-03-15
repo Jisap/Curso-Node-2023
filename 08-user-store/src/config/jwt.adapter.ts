@@ -8,7 +8,7 @@ export class JwtAdapter {
   static async generateToken( payload:any, duration:string='2h' ) {
     
     return new Promise((resolve) => {
-      jwt.sign(
+      jwt.sign(                                         // sign devuelve un token apartir de un paylod que se codifica con el JWT_SEED
         payload, 
         JWT_SEED,
         {expiresIn: duration},
@@ -24,7 +24,16 @@ export class JwtAdapter {
 
   static validateToke( token:string) {
   
-    throw new Error('Not implemented')
-    return 
+    return new Promise((resolve) => {
+      jwt.verify(                             // verify decodifica el token gracias a JWT_SEED y devuelve un payload
+        token, 
+        JWT_SEED,
+        (err, decoded) => { 
+          if(err) return resolve(null); 
+          resolve(decoded)
+        }
+        
+      )
+    })
   }
 }

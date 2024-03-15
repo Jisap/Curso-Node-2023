@@ -79,7 +79,7 @@ export class AuthService {
     const token = await JwtAdapter.generateToken({email})
     if(!token ) throw CustomError.internalServer('Error gettin token')
 
-    const link = `${envs.WEBSERVICE_URL}/auth/validate-email/${token}`;
+    const link = `${envs.WEBSERVICE_URL}/auth/validate-email/${token}`; // http://localhost:3000/api/auth/validate-emial/:token
 
     const html = `
       <h1>Validate your email</h1>
@@ -97,5 +97,21 @@ export class AuthService {
     if(!isSent) throw CustomError.internalServer("Error sendin email")
   
     return true;
+  }
+
+  public validateEmail = async(token:string) => {                     // Recibimos el token del email
+    const payload = await JwtAdapter.validateToke(token);             // Usamos el JwtAdapter para obtenre el payload
+    if(!payload) throw CustomError.badRequest('Invalid Token')
+
+    const { email } = payload as {email:string};                      // Del payload obtenemos el email
+    if(!email) throw CustomError.internalServer('Email not in token')
+
+    const user = await UserModel.findOne({ email })                   // Comprobamos que en bd existe el email    
+    if(!user) throw CustomError.internalServer('Email not exits')
+
+    user.emailValidated = true;                                       // Si exite cambiamos la prop emailValidate a true  
+    await user.save();                                                // Grabamos en bd
+
+    return true;                                                      // Retornamos true -> controller -> res.json('Email validated'
   }
 }
