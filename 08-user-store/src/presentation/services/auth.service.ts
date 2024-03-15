@@ -23,8 +23,10 @@ export class AuthService {
       user.password = bcriptAdapter.hash( registerUserDto.password );
 
       await user.save();
+
       //email de confirmación
       
+
       const {password, ...userEntity} = UserEntity.fromObject(user);
       
       //jwt <- para mantener la autenticación del usuario
