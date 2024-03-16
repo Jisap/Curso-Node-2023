@@ -35,7 +35,7 @@ export class EmailService {
   }
 
 
-  async sendEmail(options: SendMailOptions): Promise<boolean> {
+  async sendEmail(options: SendMailOptions): Promise<boolean> {     // Envía un email con un link que contiene un token basado en el email a validar
 
     const { to, subject, htmlBody, attachements = [] } = options;
 
