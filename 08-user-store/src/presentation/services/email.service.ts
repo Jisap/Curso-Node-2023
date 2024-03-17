@@ -23,7 +23,8 @@ export class EmailService {
   constructor( 
     mailerService: string,
     mailerEmail: string,  
-    senderEmailPassword: string
+    senderEmailPassword: string,
+    private readonly postToProvider: boolean, // env para establecer si enviamos o no el correo de verificación
   ) { 
     this.transporter = nodemailer.createTransport({
         service: mailerService,
@@ -41,6 +42,8 @@ export class EmailService {
 
 
     try {
+
+      if(!this.postToProvider) return true;   // Si la variable de entorno SEND_EMAIL=false no enviamos el correo de verificacióncd 08
 
       const sentInformation = await this.transporter.sendMail({
         to: to,
