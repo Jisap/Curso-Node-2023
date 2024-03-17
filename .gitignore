@@ -10,3 +10,14 @@ test-destination/
 coverage/
 
 logs/
+
+.env
+.env.test
+
+keys/
+
+/mongo
+postgres/
+mongo-test/
+postgres-test/
+
