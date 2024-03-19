@@ -31,7 +31,9 @@ export class CategoryController { // Controlador de rutas basado en un service
   }
 
   getCategories = async (req: Request, res: Response) => {
-    res.json('Get categories')
+    this.categoryService.getCategories()
+      .then(categories => res.json(categories))
+      .catch(error => this.handleError(error, res))
   }
   
 
