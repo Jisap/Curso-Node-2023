@@ -43,7 +43,7 @@ export class EmailService {
 
     try {
 
-      if(!this.postToProvider) return true;   // Si la variable de entorno SEND_EMAIL=false no enviamos el correo de verificacióncd 08
+      if(!this.postToProvider) return true;   // Si la variable de entorno SEND_EMAIL=false no enviamos el correo de verificación
 
       const sentInformation = await this.transporter.sendMail({
         to: to,

@@ -77,9 +77,9 @@ export class AuthService {
   private sendEmailValidationLink = async(email:string) => {
 
     const token = await JwtAdapter.generateToken({email})               // Generamos un token basado en el email
-    if(!token ) throw CustomError.internalServer('Error gettin token')  
+    if(!token ) throw CustomError.internalServer('Error getting token')  
 
-    const link = `${envs.WEBSERVICE_URL}/auth/validate-email/${token}`; // http://localhost:3000/api/auth/validate-emial/:token
+    const link = `${envs.WEBSERVICE_URL}/auth/validate-email/${token}`; // http://localhost:3000/api/auth/validate-email/:token
 
     const html = `
       <h1>Validate your email</h1>
@@ -100,7 +100,7 @@ export class AuthService {
   }
 
   public validateEmail = async(token:string) => {                     // Recibimos el token del email
-    const payload = await JwtAdapter.validateToke(token);             // Usamos el JwtAdapter para obtener el payload
+    const payload = await JwtAdapter.validateToken(token);            // Usamos el JwtAdapter para obtener el payload
     if(!payload) throw CustomError.badRequest('Invalid Token')
 
     const { email } = payload as {email:string};                      // Del payload obtenemos el email

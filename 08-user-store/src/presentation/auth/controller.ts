@@ -25,8 +25,8 @@ export class AuthController { // Controlador de rutas basado en un service
     const [error, registerDto] = RegisterUserDto.create(req.body) // Obtención/creación del Dto
     if(error) return res.status(400).json({error});                     
 
-    this.authService.registerUser(registerDto!)                   // Comprueba que el usuario no existe y grabación nuevo user en bd
-      .then((user) => res.json(user))                             // Si no existe devolvemos un user
+    this.authService.registerUser(registerDto!)                   // Comprueba que el usuario no existe y grabación nuevo user en bd -> link email -> validateEmail ->
+      .then((user) => res.json(user))                             // userEntity sin password -> token desde user.id -> return: token, userEntity
       .catch(error => this.handleError(error, res))               
   }
 

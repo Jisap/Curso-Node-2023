@@ -22,7 +22,7 @@ export class JwtAdapter {
     
   }
 
-  static validateToke( token:string) {
+  static validateToken<T>( token:string): Promise<T | null> {
   
     return new Promise((resolve) => {
       jwt.verify(                             // verify decodifica el token gracias a JWT_SEED y devuelve un payload
@@ -30,7 +30,7 @@ export class JwtAdapter {
         JWT_SEED,
         (err, decoded) => { 
           if(err) return resolve(null); 
-          resolve(decoded)
+          resolve(decoded as T)
         }
         
       )
