@@ -15,7 +15,7 @@ export class CreateCategoryDto {
     let availableBoolean = available
     
     if(!name) return ['Missing name'];
-    if(typeof available !== 'boolean'){           // Si available no es un boolean, osea un string
+    if(typeof available !== 'boolean'){           // Si available no es un boolean, osea es un string
       availableBoolean = (available === 'true')   // comprobamos si ese string = 'true', y si lo es availableBoolean = true
     }                                             // de lo contrario será false
             // error        Dto
