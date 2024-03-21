@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { CustomError, PaginationDto } from "../../domain";
+import { CreateProductDto, CustomError, PaginationDto } from "../../domain";
+import { ProductService } from '../services/product.service';
 
 
 
@@ -8,7 +9,7 @@ import { CustomError, PaginationDto } from "../../domain";
 export class ProductsController { // Controlador de rutas basado en un service
 
   constructor(
-    //private readonly productService: ProductService
+    private readonly productService: ProductService
   ) { }
 
   private handleError = (error: unknown, res: Response) => {
@@ -21,14 +22,16 @@ export class ProductsController { // Controlador de rutas basado en un service
   }
 
   createProduct = (req: Request, res: Response) => {
-    // const [error, createProductDto] = CreatePproductDto.create(req.body);
-    // if (error) return res.status(400).json({ error })
+    const [error, createProductDto] = CreateProductDto.create({ // El body contiene el usuario ademas del resto de props
+      ...req.body,
+      user: req.body.user.id
+    });
+    if (error) return res.status(400).json({ error })
 
-    // this.productService.createCategory(createProductyDto!, req.body.user) // graba en bd la category
-    //   .then(product => res.status(201).json(product))
-    //   .catch(error => this.handleError(error, res))
+    this.productService.createProduct(createProductDto!) // graba en bd la category
+      .then(product => res.status(201).json(product))
+      .catch(error => this.handleError(error, res))
 
-    return res.json('Create Products')
   }
 
   getProducts = async (req: Request, res: Response) => {
@@ -37,11 +40,10 @@ export class ProductsController { // Controlador de rutas basado en un service
     const [error, paginationDto] = PaginationDto.create(+page, +limit);
     if (error) return res.status(400).json({ error })
 
-    // this.productService.getCategories(paginationDto!)
-    //   .then(product => res.json(product))
-    //   .catch(error => this.handleError(error, res))
+    this.productService.getProducts(paginationDto!)
+      .then(products => res.json(products))
+      .catch(error => this.handleError(error, res))
 
-    return res.json('get Products')
   }
 
 

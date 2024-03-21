@@ -8,7 +8,7 @@ export class AuthMiddleware {
 
   static async validateJWT( req:Request, res:Response, next:NextFunction ){
   
-    const authorization = req.header('Authorization');  // Los headers(authorization) contendrán un token con el user.id que logueo y creo la category
+    const authorization = req.header('Authorization');  // Los headers(authorization) contendrán un token con el user.id que logueo y creo la category o el pto
     if( !authorization) return res.status(401).json({error: 'No token provided'});
     if( !authorization.startsWith('Bearer')) return res.status(401).json({error: 'Invalid Bearer token'});
 
