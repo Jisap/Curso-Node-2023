@@ -26,6 +26,7 @@ export class FileUploadService {
     validExtensions: string[] = ['png', 'jpg', 'jpeg', 'gif'] 
   ) {
     try {
+      
       const fileExtension = file.mimetype.split('/').at(1) ?? ''        // mimetype: 'image/jpeg' -> fileExtension
       if (!validExtensions.includes(fileExtension)) {
         throw CustomError
