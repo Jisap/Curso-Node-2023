@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { CustomError } from "../../domain";
+import { FileUploadService } from '../services/file-upload.service';
+import { UploadedFile } from "express-fileupload";
 
 
 
@@ -8,7 +10,7 @@ import { CustomError } from "../../domain";
 export class FileUploadController { // Controlador de rutas basado en un service
 
   constructor(
-
+    private readonly fileUploadService:FileUploadService 
   ) { }
 
   private handleError = (error: unknown, res: Response) => {
@@ -21,7 +23,16 @@ export class FileUploadController { // Controlador de rutas basado en un service
   }
 
   uploadFile = (req: Request, res: Response) => {
-    res.json('uploadFile')
+    const files = req.files;                                      // Archivo seleccionado por el usuario
+    if(!req.files || Object.keys(req.files).length === 0){
+      return res.status(400).json({error: 'No files were selected'})
+    }
+
+    const file = req.files.file as UploadedFile;                  // Convertido a tipo del middleware express-fileupload
+
+    this.fileUploadService.uploadSingle(file)                     // Usamos el servicio para subirlo a nuestro sistema
+      .then( uploaded => res.json(uploaded))
+      .catch( error => this.handleError(error, res))
   }
 
   uploadMultipleFiles = async (req: Request, res: Response) => {
