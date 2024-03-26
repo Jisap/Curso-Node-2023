@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { FileUploadController } from './controller';
 import { FileUploadService } from '../services/file-upload.service';
+import { FileUploadMiddleware } from '../middlewares/file-upload.middleware';
 
 
 
@@ -16,6 +17,8 @@ export class FileUploadRoutes {
    
     const controller = new FileUploadController(new FileUploadService)
 
+    router.use( FileUploadMiddleware.containFile ); // Si se suben archivos al server permite establecer si el [] contendrá uno o varios objetos 
+                                                    // Ademas establece dichos archivos en el req.body
     // Definir las rutas
     // api/upload/single/<user|category|product>/
     // api/upload/multiple/<user|category|product>/

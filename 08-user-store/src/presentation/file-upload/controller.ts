@@ -24,17 +24,13 @@ export class FileUploadController { // Controlador de rutas basado en un service
 
   uploadFile = (req: Request, res: Response) => {
 
-    const type = req.params.type;                                     // :type es la subcarpeta donde se alojará el file (comprobación)
-    const validTypes = ['users', 'products', 'categories']
-    if(!validTypes.includes(type)){
+    const type = req.params.type;                                     // :type es la subcarpeta donde se alojará el file 
+    const validTypes = ['users', 'products', 'categories']            // Nombres válidos para la carpeta de destino
+    if(!validTypes.includes(type)){                                   // Comprobación de la validez del nombre de la carpeta
       return res.status(400).json({error: `Invalid type: ${type}, valid Ones ${validTypes}`})
     }
                                        
-    if (!req.files || Object.keys(req.files).length === 0) {          // req.files contiene el archivo seleccionado por el usuario (comprobación)
-      return res.status(400).json({error: 'No files were selected'})
-    }
-
-    const file = req.files.file as UploadedFile;                      // Convertido a tipo del middleware express-fileupload
+    const file = req.body.files.at(0) as UploadedFile                 // Obtenemos del body via middleware en routes del [] con el file 
 
     this.fileUploadService.uploadSingle(file, `uploads/${type}`)      // Usamos el servicio para subirlo a nuestro sistema en la carpeta seleccionada
       .then( uploaded => res.json(uploaded))
