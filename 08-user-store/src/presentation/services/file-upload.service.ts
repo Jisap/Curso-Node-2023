@@ -33,7 +33,7 @@ export class FileUploadService {
           .badRequest(`Invalid extension: ${fileExtension}, valid ones ${validExtensions}`);
       }
       
-      const destination = path.resolve(__dirname, '../../../', folder); // Apuntamos a la carpeta uploads
+      const destination = path.resolve(__dirname, '../../../', folder); // Apuntamos a la carpeta uploads o la que se defina en el controller
   
       this.checkFolder( destination );                                  // Comprobamos si existe la carpeta de destino, sino existe se crea
 
@@ -49,10 +49,14 @@ export class FileUploadService {
   }
 
   async uploadMultiple(
-    file: any[],
+    files: UploadedFile[],
     folder: string = 'uploads',
     validExtension: string[] = ['png', 'jpg', 'jpeg', 'gif'] 
   ){
-  
+    const filesNames = await Promise.all(                                   // Se repite el proceso de uploadedFile por cada unos los files que se suban.
+      files.map(file => this.uploadSingle(file, folder, validExtension))
+    );
+
+    return filesNames
   }
 }
