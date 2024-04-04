@@ -32,13 +32,13 @@
       messagesElem.prepend(li)
     }
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', (event) => {  // Submit -> obtiene message -> sendMessage -> server -> broadcast 
       event.preventDefault();
       const message = input.value;
       sendMessage(message)
     })
     
-    socket.onopen = (event) => {
+    socket.onopen = (event) => { // ws
       console.log('Connected');
     }
 
