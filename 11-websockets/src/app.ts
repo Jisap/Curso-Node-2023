@@ -9,10 +9,15 @@ wss.on('connection', function connection(ws) {   // Controlador de evento 'conne
   ws.on('error', console.error);                 // Controlador de evento 'error para ws
 
   ws.on('message', function message(data) {      // Controlador de evento 'message' para ws si se recibe un message
-    console.log('received: %s', data);
+    console.log('Desde el cliente', data);
+    const payload = {
+      type: 'custom-message',
+      payload: data.toString(),
+    }
+    ws.send(JSON.stringify(payload))
   });
 
-  ws.send('Hola desde el servidor');             // Se envía un mensaje al cliente 
+  // ws.send('Hola desde el servidor');             // Se envía un mensaje al cliente 
 
   ws.on('close', () => {
     console.log('Client disconnect')
