@@ -1,4 +1,4 @@
-import { WebSocketServer } from 'ws';
+import { WebSocket, WebSocketServer } from 'ws';
 
 const wss = new WebSocketServer({ port: 3000 }); // Intancia de servidor de websockets escuchando conexiones websocket en el puerto 8080
 
@@ -9,12 +9,19 @@ wss.on('connection', function connection(ws) {   // Controlador de evento 'conne
   ws.on('error', console.error);                 // Controlador de evento 'error para ws
 
   ws.on('message', function message(data) {      // Controlador de evento 'message' para ws si se recibe un message
-    console.log('Desde el cliente', data);
-    const payload = {
+   
+    const payload = JSON.stringify({
       type: 'custom-message',
       payload: data.toString(),
-    }
-    ws.send(JSON.stringify(payload))
+    })
+    //ws.send(JSON.stringify(payload))
+
+    wss.clients.forEach(function each(client) {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(payload);
+      }
+    });
+
   });
 
   // ws.send('Hola desde el servidor');             // Se envía un mensaje al cliente 
