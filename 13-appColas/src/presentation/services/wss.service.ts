@@ -32,6 +32,7 @@ export class WssService {
   }
 
   static initWss( options: Options) {                 // Método para  inicializar la instancia de WssService
+    if (WssService._instance) return;
     WssService._instance = new WssService(options)
   }
 
