@@ -6,50 +6,66 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Websockets - Status</h1>
+  <h1>Websockets - <small>Status</small></h1>
+
   <form>
     <input type="text" placeholder="Enviar mensaje" />
     <button>Enviar</button>
   </form>
+
   <ul id="messages">
 
   </ul>
 
   <script>
-    const socket = new WebSocket('ws://localhost:3000');
+    let socket = null;
 
     const form = document.querySelector('form');
     const input = document.querySelector('input');
-    const messagesElem = document.querySelector('#messages')
-
-    function sendMessage( message ){
-      socket.send(message);
+    const messagesElem = document.querySelector('#messages');
+    const statusElem = document.querySelector('small');
+    
+    function sendMessage( message ){              // Envía el mensaje al server
+      socket?.send(message);
     }
 
-    function renderMessage(message) {
-      const li = document.createElement('li');
-      li.innerHTML = message;
-      messagesElem.prepend(li)
+    function renderMessage(message) {             // Construye los <li> con el mensaje
+        const li = document.createElement('li');
+        li.innerHTML = message;
+        messagesElem.prepend(li)
     }
 
     form.addEventListener('submit', (event) => {  // Submit -> obtiene message -> sendMessage -> server -> broadcast 
-      event.preventDefault();
-      const message = input.value;
-      sendMessage(message)
+        event.preventDefault();
+        const message = input.value;
+        sendMessage(message);
+        input.value = null;
     })
+
+    function connecToServer(){
     
-    socket.onopen = (event) => { // ws
-      console.log('Connected');
+      socket = new WebSocket('ws://localhost:3000');
+    
+      socket.onopen = (event) => {                    // socket escucha evento onopen
+        statusElem.innerHTML = 'OnLine'
+      }
+  
+      socket.onclose = ( event ) => {                 // socket escucha evento onclose
+        statusElem.innerHTML = 'Offline'
+        setTimeout(() => {
+          connecToServer();
+        }, 1500);
+      }
+  
+      socket.onmessage = (event) => {                 // socket escucha los mensajes recibidos
+        const { payload } = JSON.parse(event.data)
+        renderMessage(payload)
+      }
+    
     }
 
-    socket.onclose = ( event ) => {
-      console.log('Disconnected');
-    }
+    connecToServer();
 
-    socket.onmessage = (event) => {
-      const { payload } = JSON.parse(event.data)
-      renderMessage(payload)
-    }
   </script>
 </body>
 </html>
