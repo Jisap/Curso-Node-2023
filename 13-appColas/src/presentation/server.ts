@@ -39,9 +39,9 @@ export class Server {
     this.app.use( this.routes );
 
     //* SPA /^\/(?!api).*/  <== Únicamente si no empieza con la palabra api
-    this.app.get('*', (req, res) => {
-      const indexPath = path.join( __dirname + `../../../${ this.publicPath }/index.html` );
-      res.sendFile(indexPath);
+    this.app.get('*', (req, res) => {                                                        // Cualquier ruta que llegue a la app
+      const indexPath = path.join( __dirname + `../../../${ this.publicPath }/index.html` ); // Construcción de la ruta del index.html 
+      res.sendFile(indexPath);  // Envía como respuesta a la solicitud http el archivo index.html
     });
     
 
