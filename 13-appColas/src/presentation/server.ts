@@ -21,29 +21,29 @@ export class Server {
     this.port = port;
     this.publicPath = public_path;
     this.routes = routes;
+    this.configure();
   }
 
-  
-  
-  async start() {
-    
+  private configure () {
 
     //* Middlewares
-    this.app.use( express.json() ); // raw
-    this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
+    this.app.use(express.json()); // raw
+    this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
 
     //* Public Folder
-    this.app.use( express.static( this.publicPath ) );
+    this.app.use(express.static(this.publicPath));
 
     //* Routes
-    this.app.use( this.routes );
+    this.app.use(this.routes);
 
-    //* SPA /^\/(?!api).*/  <== Únicamente si no empieza con la palabra api
-    this.app.get('*', (req, res) => {                                                        // Cualquier ruta que llegue a la app
-      const indexPath = path.join( __dirname + `../../../${ this.publicPath }/index.html` ); // Construcción de la ruta del index.html 
-      res.sendFile(indexPath);  // Envía como respuesta a la solicitud http el archivo index.html
+    //* SPA 
+    this.app.get(/^\/(?!api).*/, (req, res) => { // Cualquier ruta que llegue a la app que no comienze por api
+      const indexPath = path.join(__dirname + `../../../${this.publicPath}/index.html`); // Construcción de la ruta del index.html 
+      res.sendFile(indexPath);  // envía como respuesta a la solicitud http el archivo index.html
     });
-    
+  }
+  
+  async start() {
 
     this.serverListener = this.app.listen(this.port, () => {
       console.log(`Server running on port ${ this.port }`);
