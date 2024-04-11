@@ -12,8 +12,11 @@ function connectToWebSockets() {
 
   const socket = new WebSocket('ws://localhost:3000/ws');
 
-  socket.onmessage = (event) => {
-    console.log(event.data);
+  socket.onmessage = (event) => {   // A la escucha del  Evento on-ticket-count-changed
+    console.log(event.data); 
+    const { type, payload } = JSON.parse(event.data);    
+    if (type !== 'on-ticket-count-changed') return; // Si el type es 'on-ticket-count-changed' cambiamos el html
+    lblPending.innerHTML = payload;
   };
 
   socket.onclose = (event) => {
