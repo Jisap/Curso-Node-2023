@@ -14,7 +14,7 @@ function main() {
 
   const server = new Server({ // Instancia de servidor de express
     port: envs.PORT,
-    routes: AppRoutes.routes,
+    //routes: AppRoutes.routes,
   });
 
   // Tenemos un servidor de express para peticiones http que implementa un servicio de websockets.
@@ -23,6 +23,8 @@ function main() {
 
   const httpServer = createServer( server.app );  // Servidor de peticiones http basado en el server de express
   WssService.initWss({ server: httpServer })      // Se inicia el servicio de websockets basado en el server de http
+
+  server.setRoutes(AppRoutes.routes)              // Las rutas se inicializan despues de que wssService se inicializen
 
   httpServer.listen(envs.PORT, () => {
     console.log(`Server running on port: ${envs.PORT}`)
