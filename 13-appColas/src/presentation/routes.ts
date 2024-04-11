@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import { TicketRoutes } from './services/tickets/routes';
+import { TicketRoutes } from './tickets/routes';
+
+
 
 
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { TicketService } from '../ticket.service';
+import { TicketService } from '../services/ticket.service';
 
 
 
