@@ -34,6 +34,7 @@ export class TicketService {
     return this.tickets.length > 0 ? this.tickets.at(-1)!.number : 0;
   }
 
+  // Crear un ticket nuevo
   public createTicket() {
     const ticket : Ticket = {
       id: UuidAdapter.v4(),
@@ -50,18 +51,19 @@ export class TicketService {
     return ticket
   }
 
-  public drawTicket( desk:string ) {
-    const ticket = this.tickets.find(t => !t.handleAtDesk);
+  // Asignamiento de ticket a un escritorio
+  public drawTicket( desk:string ) {  
+    const ticket = this.tickets.find(t => !t.handleAtDesk);                             // Primer ticket que no tiene asignado un escritorio
     if(!ticket) return {status: 'error', message: 'No hay tickets pendientes'}
     
-    ticket.handleAtDesk = desk;
-    ticket.handleAt = new Date();
+    ticket.handleAtDesk = desk;                                                         // A ese ticket se le asigna el escritorio
+    ticket.handleAt = new Date();                                                       // y la fecha    
 
-    this.workingOnTickets.unshift({...ticket});
+    this.workingOnTickets.unshift({...ticket});                                         // Se agrega a workigOnTicket
 
-    // TODO: WS
+    this.onTicketNumberChanged();                                                       // Se envía por ws el evento con el nº de tickets pendientes
 
-    return { status: 'ok', ticket }
+    return { status: 'ok', ticket }                                                     // Se devuelve el ticket asignado  
   }
 
   public onFinishTicket( id: string ) {

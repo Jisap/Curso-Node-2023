@@ -1,16 +1,20 @@
 
-const lblPending = document.querySelector('#lbl-pending'); 
-const deskHeader = document.querySelector('h1');
-const noMoreAlert = document.querySelector('.alert');
+const lblPending = document.querySelector('#lbl-pending');        // Tickets pendientes
+const deskHeader = document.querySelector('h1');                  // Nº de escritorio
+const noMoreAlert = document.querySelector('.alert');             // Alerta de "no hay más tickets"
+const btnDraw = document.querySelector('#btn-draw');              // Boton de siguiente
+const btnDone = document.querySelector('#btn-done');              // Boton de terminar
+const lblCurrentTicket = document.querySelector('small');         // "Atendiendo a ...." si hay error se mostrará ahí.
 
-const searchParams = new URLSearchParams(window.location.search); // params que se reciben en url desde el input del index.html (escritorio x)
+const searchParams = new URLSearchParams(window.location.search); // params que se reciben en url desde el input del index.html (http://localhost:3000/desk.html?escritorio=Dr+Cabrera)
 if(!searchParams.has('escritorio')){                              // Sino se envía el escritorio redirección al index y error
   window.location = 'index.html';
   throw new Error('Escritorio es requerido');
 }
-const deskNumber = searchParams.get('escritorio');                // Si si se envía el escritorio
+const deskNumber = searchParams.get('escritorio');                // Si si se envía el escritorio se obtiene el "escritorio" (lo que se haya puesto en el input)
 deskHeader.innerText = deskNumber;                                // se modifica el h1
 
+let workingTicket = null;
 
 function checkTicketCount(currentCount = 0) {   
   if (currentCount === 0) {                                       // Si la cuenta de tickets = 0  
@@ -28,6 +32,17 @@ async function loadInitialCount() {                               // Muestra los
     .then(resp => resp.json());
 
   checkTicketCount(pendingTickets.length);                        // Actualiza pendientes en el html  
+}
+
+async function getTicket(){                                       // Obtiene el ticket asignado a un escritorio    
+  const { status, ticket, message } = await fetch(`/api/ticket/draw/${deskNumber}`)  // message es el "posible" error
+    .then(resp => resp.json())
+  if(status === 'error'){
+    lblCurrentTicket.innerText = message;
+  }
+
+  workingTicket = ticket;                                         // Se asigna a la variable workingTicket   
+  lblCurrentTicket.innerText = ticket.number;                     // y se modifica el html  
 }
 
 function connectToWebSockets() {
@@ -57,8 +72,9 @@ function connectToWebSockets() {
 
 }
 
+// Listeners
+btnDraw.addEventListener('click', getTicket)
 
-
-
+// Init
 loadInitialCount()
 connectToWebSockets()
