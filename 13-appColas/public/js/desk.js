@@ -60,7 +60,7 @@ async function getTicket(){                                       // Obtiene el 
 async function finishTicket(){
   if(!workingTicket) return
 
-  const { status, message } = await fetch(`/api/ticket/done/${workingTicket.id}`,{
+  const { status, message } = await fetch(`/api/ticket/done/${workingTicket.id}`,{ // Se
     method: 'PUT'
   }).then(resp => resp.json());
 
@@ -103,7 +103,7 @@ function connectToWebSockets() {
 
 // Listeners
 btnDraw.addEventListener('click', getTicket);
-btnDone.addEvenListener('click', finishTicket)
+btnDone.addEventListener('click', finishTicket)
 
 // Init
 loadInitialCount()

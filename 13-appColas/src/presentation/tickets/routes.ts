@@ -17,7 +17,7 @@ export class TicketRoutes {
     router.post('/', ticketController.createTicket);
     router.get('/draw/:desk', ticketController.drawTicket);
     router.put('/done/:ticketId', ticketController.ticketFinished);
-    router.get('/working-on', ticketController.workingOn);
+    router.get('/working-on', ticketController.workingOn);  // workingOn -> lastWorkingOnTickets -> 4 primeros tickets asignados 
 
     return router
   }
