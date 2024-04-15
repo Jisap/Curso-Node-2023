@@ -2,19 +2,24 @@
 const lblPending = document.querySelector('#lbl-pending');        // Tickets pendientes
 const deskHeader = document.querySelector('h1');                  // Nº de escritorio
 const noMoreAlert = document.querySelector('.alert');             // Alerta de "no hay más tickets"
+const lblCurrentTicket = document.querySelector('small');         // "Atendiendo a ...." si hay error se mostrará ahí.
 const btnDraw = document.querySelector('#btn-draw');              // Boton de siguiente
 const btnDone = document.querySelector('#btn-done');              // Boton de terminar
-const lblCurrentTicket = document.querySelector('small');         // "Atendiendo a ...." si hay error se mostrará ahí.
+
+
+
 
 const searchParams = new URLSearchParams(window.location.search); // params que se reciben en url desde el input del index.html (http://localhost:3000/desk.html?escritorio=Dr+Cabrera)
 if(!searchParams.has('escritorio')){                              // Sino se envía el escritorio redirección al index y error
   window.location = 'index.html';
   throw new Error('Escritorio es requerido');
 }
-const deskNumber = searchParams.get('escritorio');                // Si si se envía el escritorio se obtiene el "escritorio" (lo que se haya puesto en el input)
+const deskNumber = searchParams.get('escritorio');                // Si si se envía el escritorio se obtiene el "escritorio" (value del input)
 deskHeader.innerText = deskNumber;                                // se modifica el h1
 
-let workingTicket = null;
+
+
+let workingTicket = null;                                         // Ticket en el que se está trabajando
 
 function checkTicketCount(currentCount = 0) {   
   if (currentCount === 0) {                                       // Si la cuenta de tickets = 0  
@@ -27,6 +32,7 @@ function checkTicketCount(currentCount = 0) {
 }
 
 
+
 async function loadInitialCount() {                               // Muestra los ticket no asignados a un escritorio
   const pendingTickets = await fetch('/api/ticket/pending')
     .then(resp => resp.json());
@@ -34,16 +40,39 @@ async function loadInitialCount() {                               // Muestra los
   checkTicketCount(pendingTickets.length);                        // Actualiza pendientes en el html  
 }
 
+
+
 async function getTicket(){                                       // Obtiene el ticket asignado a un escritorio    
+  await finishTicket()
   const { status, ticket, message } = await fetch(`/api/ticket/draw/${deskNumber}`)  // message es el "posible" error
     .then(resp => resp.json())
-  if(status === 'error'){
+  
+    if(status === 'error'){
     lblCurrentTicket.innerText = message;
+    return;
   }
 
   workingTicket = ticket;                                         // Se asigna a la variable workingTicket   
   lblCurrentTicket.innerText = ticket.number;                     // y se modifica el html  
 }
+
+
+async function finishTicket(){
+  if(!workingTicket) return
+
+  const { status, message } = await fetch(`/api/ticket/done/${workingTicket.id}`,{
+    method: 'PUT'
+  }).then(resp => resp.json());
+
+  console.log({status, message})
+
+  if(status === 'ok') {
+    workingTicket = null;
+    lblCurrentTicket.innerText = 'Nadie'
+  }
+}
+
+
 
 function connectToWebSockets() {
 
@@ -73,7 +102,8 @@ function connectToWebSockets() {
 }
 
 // Listeners
-btnDraw.addEventListener('click', getTicket)
+btnDraw.addEventListener('click', getTicket);
+btnDone.addEvenListener('click', finishTicket)
 
 // Init
 loadInitialCount()

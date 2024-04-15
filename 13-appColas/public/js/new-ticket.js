@@ -15,7 +15,7 @@ async function getLastTicket() {
 async function createTicket() {                           // Peticion para crear nuevo ticket
   const newTicket = await fetch('/api/ticket', {
     method: 'POST'  
-  }).then( resp => resp.json());
+  }).then(resp => resp.json());                           // envía por ws el evento con el nº de tickets pendientes  
 
   currentTicketLbl.innerText = newTicket.number;          // Modificación del html
 }
