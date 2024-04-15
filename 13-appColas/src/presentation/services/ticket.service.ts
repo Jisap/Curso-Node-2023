@@ -87,6 +87,9 @@ export class TicketService {
     return { status: 'ok'}
   }
 
+
+  // Eventos de ws
+  
   private onTicketNumberChanged(){                                //getter
     this.wssService.sendMessage("on-ticket-count-changed", this.pendingTickets.length); // envía por ws el evento con el nº de tickets pendientes
   }
